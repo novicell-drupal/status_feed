@@ -1,0 +1,14 @@
+status_feed.config:
+  title: 'Status Feed'
+  description: 'Status Feed import and settings'
+  route_name: status_feed.config
+  parent: system.admin_config
+  weight: -15
+
+status_feed.settings_form:
+  title: 'Settings'
+  description: 'Status Feed settings'
+  route_name: status_feed.settings
+  parent: status_feed.config
+  menu_name: system.admin_config
+  weight: 15

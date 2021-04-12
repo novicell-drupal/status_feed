@@ -1,0 +1,25 @@
+status_feed.config:
+  path: '/admin/config/status_feed'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Status Feed'
+  requirements:
+    _permission: 'administer site configuration'
+
+status_feed.feed:
+  path: '/status_feed.json'
+  defaults:
+    _controller: '\Drupal\status_feed\Controller\FeedController::build'
+    _title: 'Status Feed data collector'
+  options:
+    _auth: [ 'basic_auth', 'cookie' ]
+  requirements:
+    _permission: 'access status feed'
+
+status_feed.settings:
+  path: '/admin/config/status_feed/settings'
+  defaults:
+    _form: '\Drupal\status_feed\Form\MonitorSettingsForm'
+    _title: 'Status Feed settings'
+  requirements:
+    _permission: 'administer site configuration'

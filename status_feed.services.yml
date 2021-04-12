@@ -1,0 +1,23 @@
+services:
+  status_feed.data_collector:
+    class: Drupal\status_feed\DataCollector
+    arguments: ['@database','@state','@cache.default', '@event_dispatcher']
+  status_feed.feed_builder:
+    class: Drupal\status_feed\FeedBuilder
+    arguments: ['@status_feed.data_collector']
+  status_feed.cron:
+    class: Drupal\status_feed\DataCollectorCron
+    arguments: ['@status_feed.data_collector']
+  status_feed.update.manager:
+    class: Drupal\update\UpdateManager
+    arguments: ['@config.factory', '@module_handler', '@status_feed.update.processor', '@string_translation', '@keyvalue.expirable', '@theme_handler']
+  status_feed.update.processor:
+    class: Drupal\update\UpdateProcessor
+    arguments: ['@config.factory', '@queue', '@status_feed.update.fetcher', '@state', '@private_key', '@keyvalue', '@keyvalue.expirable']
+  status_feed.update.fetcher:
+    class: Drupal\update\UpdateFetcher
+    arguments: ['@config.factory', '@http_client']
+  status_feed.status.event_subscriber:
+    class: Drupal\status_feed\EventSubscriber\MonitorStatusEventSubscriber
+    tags:
+      - { name: 'event_subscriber' }

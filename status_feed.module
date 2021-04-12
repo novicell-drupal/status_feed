@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_cron().
+ */
+function status_feed_cron() {
+  /** @var \Drupal\status_feed\DataCollectorCron $data_collector_cron */
+  $data_collector_cron = \Drupal::service('status_feed.cron');
+
+  $settings = \Drupal::config('status_feed.settings');
+
+  if (!empty($settings->get('activate_cron'))) {
+    $data_collector_cron->run();
+  }
+}

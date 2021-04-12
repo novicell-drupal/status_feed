@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * Module install, then add a monitor user.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function status_feed_install() {
+  $user = \Drupal\user\Entity\User::create([
+    'name' => 'Status Feed',
+    'mail' => 'statusfeed@example.com',
+    'status' => 1,
+  ]);
+  $user->addRole('monitor');
+  $user->save();
+}
+
+/**
+ * Module uninstall, then remove the monitor user.
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function status_feed_uninstall() {
+  $uids = \Drupal::entityQuery('user')->condition('mail', 'statusfeed@example.com')->execute();
+  if ($uids) {
+    $users = \Drupal\user\Entity\User::loadMultiple($uids);
+    foreach ($users as $user) {
+      $user->delete();
+    }
+  }
+}
+
