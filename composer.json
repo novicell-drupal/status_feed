@@ -1,5 +1,5 @@
 {
-  "name": "status_feed",
+  "name": "novicell/status_feed",
   "type": "drupal-module",
   "description": "Novicell status feed",
   "keywords": [
