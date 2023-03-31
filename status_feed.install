@@ -21,7 +21,10 @@ function status_feed_install() {
  * @throws \Drupal\Core\Entity\EntityStorageException
  */
 function status_feed_uninstall() {
-  $uids = \Drupal::entityQuery('user')->condition('mail', 'statusfeed@example.com')->execute();
+  $uids = \Drupal::entityQuery('user')
+    ->condition('mail', 'statusfeed@example.com')
+    ->accessCheck(FALSE)
+    ->execute();
   if ($uids) {
     $users = \Drupal\user\Entity\User::loadMultiple($uids);
     foreach ($users as $user) {

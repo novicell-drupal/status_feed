@@ -50,7 +50,10 @@ function status_feed_deploy_migrate_monitor() {
       }
     }
 
-    $uids = \Drupal::entityQuery('user')->condition('mail', 'phpmonitor@novicell.dk')->execute();
+    $uids = \Drupal::entityQuery('user')
+      ->condition('mail', 'phpmonitor@novicell.dk')
+      ->accessCheck(FALSE)
+      ->execute();
     if ($uids) {
       $users = \Drupal\user\Entity\User::loadMultiple($uids);
       foreach ($users as $user) {
