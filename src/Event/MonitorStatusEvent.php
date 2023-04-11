@@ -3,7 +3,7 @@
 namespace Drupal\status_feed\Event;
 
 use Drupal\status_feed\Model\MonitorStatus;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Monitor status event.

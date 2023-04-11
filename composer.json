@@ -1,11 +1,14 @@
 {
-  "name": "novicell/status_feed",
-  "type": "drupal-module",
-  "description": "Novicell status feed",
-  "keywords": [
-    "Novicell"
-  ],
-  "license": "GPL-2.0+",
-  "homepage": "https://www.novicell.dk",
-  "minimum-stability": "dev"
+    "name": "novicell/status_feed",
+    "type": "drupal-module",
+    "description": "Novicell status feed",
+    "keywords": [
+        "Novicell"
+    ],
+    "license": "GPL-2.0+",
+    "homepage": "https://www.novicell.dk",
+    "minimum-stability": "dev",
+    "require": {
+        "drupal/core": "^9 || ^10"
+    }
 }

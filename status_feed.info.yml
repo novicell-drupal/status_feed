@@ -2,9 +2,9 @@ name: Status feed
 description: Generate status feed for your Drupal website
 package: Monitoring
 type: module
-version : 1.0.0
-core_version_requirement: ^8.8 || ^9
+version : "1.1"
+core_version_requirement: ^9 || ^10
 dependencies:
-  - basic_auth
+  - core:basic_auth
 
 configure: status_feed.settings
