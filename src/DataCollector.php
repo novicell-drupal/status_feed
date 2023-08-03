@@ -222,7 +222,7 @@ class DataCollector {
   protected function getStatusData() {
     $event = new MonitorStatusEvent();
     /** @var \Drupal\status_feed\Event\MonitorStatusEvent $monitor_event */
-    $monitor_event = $this->eventDispatcher->dispatch(MonitorStatusEvents::REGISTER_STATUS, $event);
+    $monitor_event = $this->eventDispatcher->dispatch($event, MonitorStatusEvents::REGISTER_STATUS);
     $response = $monitor_event->getMonitorStatus();
 
     // Invalidate the feed cache.
