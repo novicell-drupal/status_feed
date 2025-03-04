@@ -11,6 +11,8 @@ status_feed.feed:
   defaults:
     _controller: '\Drupal\status_feed\Controller\FeedController::build'
     _title: 'Status Feed data collector'
+  options:
+    _auth: ['basic_auth', 'cookie']
   requirements:
     _permission: 'access status feed'
 
