@@ -161,7 +161,8 @@ class DataCollector {
     }
 
     $this->state->set('status_feed.collect_' . $type . '_data_last_run', self::$requestTime);
-    return $status ?? [];
+    // CacheBackendInterface::get() returns an envelope, not the cached data.
+    return is_object($status) && isset($status->data) ? $status->data : ($status ?? []);
   }
 
   /**
@@ -201,7 +202,7 @@ class DataCollector {
           'package' => $module['package'],
           'type' => ucfirst($module['type']),
           'status' => 'Enabled',
-          'version' => $module['version'],
+          'version' => $module['version'] ?? NULL,
         ];
       }
     }

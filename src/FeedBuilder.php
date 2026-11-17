@@ -75,4 +75,17 @@ class FeedBuilder {
     return self::$dataCollector->collectData('status');
   }
 
+  /**
+   * Builds the same payload for HTTP feeds and outbound webhook delivery.
+   */
+  public function build(): array {
+    return [
+      'system' => 'drupal',
+      'core' => $this->getCoreData(),
+      'modules' => $this->getModuleData(),
+      'created' => time(),
+      'status' => $this->getStatusData(),
+    ];
+  }
+
 }

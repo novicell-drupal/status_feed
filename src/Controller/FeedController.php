@@ -81,13 +81,7 @@ class FeedController extends ControllerBase {
     }
 
     // Generate the feed.
-    $feed = [
-      'system' => 'drupal',
-      'core' => $this->feedBuilder->getCoreData(),
-      'modules' => $this->feedBuilder->getModuleData(),
-      'created' => time(),
-      'status' => $this->feedBuilder->getStatusData(),
-    ];
+    $feed = $this->feedBuilder->build();
 
     // Return the it as a json response.
     $response = new JsonResponse($feed);

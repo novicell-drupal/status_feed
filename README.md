@@ -36,6 +36,26 @@ To submit bug reports and feature suggestions, or to track changes, please visit
 5. Set password for the user.
 6. Click the 'Save' button.
 
+## Outbound webhooks for sites behind a firewall
+
+In Drools, enable **Receive status feeds by webhook** on the website's
+**Status webhook** tab. Copy its URL and secret token. Each website has its own
+credentials.
+
+At `/admin/config/status_feed/settings`, enable **Send feeds on cron**, enter
+the HTTPS webhook URL and token, and choose **Save and send now**. Drupal cron
+then sends the normal feed at the configured interval (one hour by default).
+This is independent of the existing **Activate cron** collection checkbox.
+The webhook needs no monitor user login. Drools processes accepted uploads on
+its next surveillance import or when **Update website data** is selected.
+
+Failed sends retry on a subsequent cron run, after at most five minutes of
+backoff. HTTP requests have a 30-second timeout, retain TLS certificate
+verification, and do not follow redirects. Settings and credentials are kept in
+Drupal state, outside configuration exports. Database clones retain them, so
+disable sending on cloned environments. Leave the token field blank when saving
+to retain the current token; paste a replacement after rotating it in Drools.
+
 ## Troubleshooting
 
 1. Go to the module issue queue at

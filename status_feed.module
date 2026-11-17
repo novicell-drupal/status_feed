@@ -12,4 +12,7 @@ function status_feed_cron() {
   if (!empty($settings->get('activate_cron'))) {
     $data_collector_cron->run();
   }
+
+  // Outbound delivery is independently enabled for sites behind a firewall.
+  \Drupal::service('status_feed.webhook_sender')->send();
 }

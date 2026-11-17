@@ -1,4 +1,10 @@
 services:
+  logger.channel.status_feed:
+    parent: logger.channel_base
+    arguments: ['status_feed']
+  status_feed.webhook_sender:
+    class: Drupal\status_feed\WebhookSender
+    arguments: ['@status_feed.feed_builder', '@http_client', '@state', '@lock', '@logger.channel.status_feed']
   status_feed.data_collector:
     class: Drupal\status_feed\DataCollector
     arguments: ['@database','@state','@cache.default', '@event_dispatcher']
