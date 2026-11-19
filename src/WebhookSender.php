@@ -55,7 +55,10 @@ class WebhookSender {
       $feed = $this->builder->build();
       $stage = 'posting the status feed';
       $response = $this->client->request('POST', $settings['url'], [
-        'headers' => ['Authorization' => 'Bearer ' . $settings['token'], 'Accept' => 'application/json'],
+        'headers' => [
+          'X-Status-Feed-Token' => $settings['token'],
+          'Accept' => 'application/json',
+        ],
         'json' => $feed,
         'connect_timeout' => 5,
         'timeout' => 30,

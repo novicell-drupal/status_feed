@@ -9,6 +9,7 @@ use Drupal\status_feed\WebhookSender;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -42,13 +43,17 @@ class WebhookSenderLoggingTest extends TestCase {
       }
 
     };
-    $client = new Client(['handler' => HandlerStack::create(new MockHandler([new Response(403, [], $body)]))]);
+    $requests = [];
+    $stack = HandlerStack::create(new MockHandler([new Response(403, [], $body)]));
+    $stack->push(Middleware::history($requests));
+    $client = new Client(['handler' => $stack]);
     $logger = $this->createMock(LoggerInterface::class);
     $logger->expects($this->once())->method('warning')->with(
       $this->stringContains('@reason'),
       ['@status' => 403, '@reason' => $expected],
     );
     $this->assertFalse((new WebhookSender($builder, $client, $state, $lock, $logger))->send(TRUE));
+    $this->assertSame($secret, $requests[0]['request']->getHeaderLine('X-Status-Feed-Token'));
   }
 
   /**
